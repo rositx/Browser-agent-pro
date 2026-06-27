@@ -1,0 +1,9 @@
+{
+  "session_id": "sess_example_001",
+  "objective": "Navigate to the target site and verify stealth browser initialization",
+  "target_domains": ["example.com", "httpbin.org"],
+  "credentials_ref": null,
+  "output_schema": null,
+  "max_steps": 30,
+  "human_review_required": ["submit_application", "agree_terms"]
+}
