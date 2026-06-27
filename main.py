@@ -68,7 +68,7 @@ async def run_agent(
     print(f"[*] Launching browser (headless={settings.headless}, profile={profile_name})")
 
     async with BrowserRuntime(settings=settings, profile_name=profile_name) as runtime:
-        print(f"[✓] Browser launched successfully")
+        print(f"[OK] Browser launched successfully")
         print(f"    Viewport: {runtime.viewport_size}")
         print(f"    User-Agent: {runtime.user_agent[:60]}...")
         print()
@@ -91,14 +91,14 @@ async def run_agent(
             )
 
             if result.success:
-                print(f"[✓] {result.message}")
+                print(f"[OK] {result.message}")
                 session.record_action(
                     action={"action": "navigate", "value": target_url},
                     observation=result.message,
                     success=True,
                 )
             else:
-                print(f"[✗] Navigation failed: {result.message}")
+                print(f"[FAIL] Navigation failed: {result.message}")
                 session.record_action(
                     action={"action": "navigate", "value": target_url},
                     success=False,
@@ -118,11 +118,11 @@ async def run_agent(
         # Complete session
         session.complete()
         print()
-        print(f"[✓] Session completed")
+        print(f"[OK] Session completed")
         print(f"    Steps taken: {session.current_step}/{session.max_steps}")
         print(f"    Actions recorded: {len(session.trace)}")
 
-    print("[✓] Browser closed. Goodbye!")
+    print("[OK] Browser closed. Goodbye!")
 
 
 def main() -> None:

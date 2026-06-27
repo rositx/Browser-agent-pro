@@ -23,7 +23,7 @@ from playwright.async_api import (
     Playwright,
     async_playwright,
 )
-from playwright_stealth import stealth_async
+from playwright_stealth import Stealth
 
 from agent.core.config import Settings, get_settings
 
@@ -105,7 +105,7 @@ class BrowserRuntime:
             self._page = await self._context.new_page()
 
         # Apply stealth patches to mask automation signals
-        await stealth_async(self._page)
+        await Stealth().apply_stealth_async(self._page)
 
         return self
 
@@ -166,7 +166,7 @@ class BrowserRuntime:
             raise RuntimeError("BrowserRuntime not initialised.")
 
         page = await self._context.new_page()
-        await stealth_async(page)
+        await Stealth().apply_stealth_async(page)
         self._page = page
         return page
 
