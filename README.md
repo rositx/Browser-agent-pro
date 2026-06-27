@@ -18,16 +18,17 @@ Browser-Agent-Pro is an intelligent browser automation system that can:
 | Browser Runtime | Playwright (Async) + playwright-stealth |
 | Configuration | Pydantic Settings + python-dotenv |
 | AI / LLM | Anthropic (Claude) + OpenAI (GPT-4o) |
-| Vector Store | ChromaDB |
+| Vector Store | ChromaDB (Local In-Process) |
 | Visual Processing | Pillow + OpenCV |
 | Document Generation | Jinja2 + WeasyPrint |
-| Task Queue | Celery + Redis |
+| Task Queue | Celery + Redis (Production) / asyncio.Queue (Desktop App) |
 | Logging | Loguru (JSONL) |
 
 ## Project Structure
 
 ```
 Browser-agent-pro/
+├── gui.py                   # Desktop GUI entrypoint (WebView2 + FastAPI)
 ├── agent/
 │   ├── core/
 │   │   ├── config.py       # Pydantic Settings configuration
@@ -36,11 +37,16 @@ Browser-agent-pro/
 │   │   ├── driver.py       # Action dispatcher with stealth timing
 │   │   ├── parser.py       # AX tree & visual overlay (Phase 2)
 │   │   ├── brain.py        # Dual-LLM orchestrator (Phase 2)
-│   │   └── corrector.py    # Self-correction loop (Phase 3)
+│   │   ├── corrector.py    # Self-correction loop (Phase 3)
+│   │   └── server.py       # FastAPI UI server (Phase 4)
 │   ├── storage/
 │   │   ├── schema.py       # Pydantic action schemas (Phase 2)
 │   │   ├── knowledge.py    # ChromaDB vector store (Phase 2)
 │   │   └── cache.py        # SQLite selector cache (Phase 3)
+│   ├── ui/                  # Desktop GUI assets (Phase 4)
+│   │   ├── index.html
+│   │   ├── style.css
+│   │   └── app.js
 │   └── utils/
 │       ├── document.py     # PDF generation (Phase 3)
 │       └── logger.py       # Structured logging (Phase 3)
@@ -70,6 +76,13 @@ cp .env.example .env
 ```
 
 ### 3. Run
+
+#### Running the Desktop GUI App
+```bash
+python gui.py
+```
+
+#### Running via CLI
 ```bash
 python main.py --manifest manifests/example_manifest.json
 python main.py --manifest manifests/example_manifest.json --headless
@@ -87,6 +100,7 @@ pytest tests/ -v
 | Phase 1 | Foundation, Runtime & Browser Stealth | 🚧 In Progress |
 | Phase 2 | Perception, Brain & Vector Store | ⏳ Pending |
 | Phase 3 | Resilience, Self-Correction & Production | ⏳ Pending |
+| Phase 4 | Integrated Desktop UI & Control Center | ⏳ Pending |
 
 ## License
 
