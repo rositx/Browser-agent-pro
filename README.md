@@ -102,6 +102,3 @@ pytest tests/ -v
 | Phase 3 | Resilience, Self-Correction & Production | ⏳ Pending |
 | Phase 4 | Integrated Desktop UI & Control Center | ⏳ Pending |
 
-## License
-
-Private — All rights reserved.
